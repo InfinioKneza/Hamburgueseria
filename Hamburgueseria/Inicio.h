@@ -2,6 +2,7 @@
 #include "Productos.h"
 #include "Inventario.h"
 #include "Ventas.h"
+#include "Estadisticas.h"
 
 namespace Hamburgueseria {
 
@@ -37,7 +38,7 @@ namespace Hamburgueseria {
 				delete components;
 			}
 		}
-	private: System::ComponentModel::BackgroundWorker^ backgroundWorker1;
+
 	protected:
 	private: System::Windows::Forms::Panel^ panel_izq;
 	private: System::Windows::Forms::Panel^ panel_margen_izq;
@@ -47,6 +48,7 @@ namespace Hamburgueseria {
 	private: System::Windows::Forms::Button^ btn_productos;
 	private: System::Windows::Forms::Button^ btn_ventas;
 	private: System::Windows::Forms::Button^ btn_inventario;
+	private: System::Windows::Forms::Button^ btn_estadisticas;
 
 	private:
 		/// <summary>
@@ -62,7 +64,6 @@ namespace Hamburgueseria {
 		void InitializeComponent(void)
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(Inicio::typeid));
-			this->backgroundWorker1 = (gcnew System::ComponentModel::BackgroundWorker());
 			this->panel_izq = (gcnew System::Windows::Forms::Panel());
 			this->btn_ventas = (gcnew System::Windows::Forms::Button());
 			this->btn_inventario = (gcnew System::Windows::Forms::Button());
@@ -71,6 +72,7 @@ namespace Hamburgueseria {
 			this->panel_bajo = (gcnew System::Windows::Forms::Panel());
 			this->panel_contenedor = (gcnew System::Windows::Forms::Panel());
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
+			this->btn_estadisticas = (gcnew System::Windows::Forms::Button());
 			this->panel_izq->SuspendLayout();
 			this->panel_contenedor->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
@@ -80,6 +82,7 @@ namespace Hamburgueseria {
 			// 
 			this->panel_izq->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(227)), static_cast<System::Int32>(static_cast<System::Byte>(148)),
 				static_cast<System::Int32>(static_cast<System::Byte>(29)));
+			this->panel_izq->Controls->Add(this->btn_estadisticas);
 			this->panel_izq->Controls->Add(this->btn_ventas);
 			this->panel_izq->Controls->Add(this->btn_inventario);
 			this->panel_izq->Controls->Add(this->btn_productos);
@@ -99,7 +102,7 @@ namespace Hamburgueseria {
 			this->btn_ventas->Font = (gcnew System::Drawing::Font(L"Century Gothic", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btn_ventas->ForeColor = System::Drawing::SystemColors::ButtonFace;
-			this->btn_ventas->Location = System::Drawing::Point(0, 312);
+			this->btn_ventas->Location = System::Drawing::Point(0, 304);
 			this->btn_ventas->Name = L"btn_ventas";
 			this->btn_ventas->Size = System::Drawing::Size(225, 52);
 			this->btn_ventas->TabIndex = 3;
@@ -116,7 +119,7 @@ namespace Hamburgueseria {
 			this->btn_inventario->Font = (gcnew System::Drawing::Font(L"Century Gothic", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btn_inventario->ForeColor = System::Drawing::SystemColors::ButtonFace;
-			this->btn_inventario->Location = System::Drawing::Point(0, 228);
+			this->btn_inventario->Location = System::Drawing::Point(0, 218);
 			this->btn_inventario->Name = L"btn_inventario";
 			this->btn_inventario->Size = System::Drawing::Size(225, 52);
 			this->btn_inventario->TabIndex = 2;
@@ -134,7 +137,7 @@ namespace Hamburgueseria {
 			this->btn_productos->Font = (gcnew System::Drawing::Font(L"Century Gothic", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btn_productos->ForeColor = System::Drawing::SystemColors::ButtonFace;
-			this->btn_productos->Location = System::Drawing::Point(0, 145);
+			this->btn_productos->Location = System::Drawing::Point(0, 128);
 			this->btn_productos->Name = L"btn_productos";
 			this->btn_productos->Size = System::Drawing::Size(225, 52);
 			this->btn_productos->TabIndex = 1;
@@ -147,7 +150,7 @@ namespace Hamburgueseria {
 			this->panel_margen_izq->Dock = System::Windows::Forms::DockStyle::Top;
 			this->panel_margen_izq->Location = System::Drawing::Point(0, 0);
 			this->panel_margen_izq->Name = L"panel_margen_izq";
-			this->panel_margen_izq->Size = System::Drawing::Size(225, 145);
+			this->panel_margen_izq->Size = System::Drawing::Size(225, 128);
 			this->panel_margen_izq->TabIndex = 0;
 			// 
 			// panel_bajo
@@ -177,6 +180,24 @@ namespace Hamburgueseria {
 			this->pictureBox1->Size = System::Drawing::Size(452, 467);
 			this->pictureBox1->TabIndex = 0;
 			this->pictureBox1->TabStop = false;
+			// 
+			// btn_estadisticas
+			// 
+			this->btn_estadisticas->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(46)), static_cast<System::Int32>(static_cast<System::Byte>(46)),
+				static_cast<System::Int32>(static_cast<System::Byte>(46)));
+			this->btn_estadisticas->Dock = System::Windows::Forms::DockStyle::Bottom;
+			this->btn_estadisticas->FlatAppearance->BorderSize = 0;
+			this->btn_estadisticas->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btn_estadisticas->Font = (gcnew System::Drawing::Font(L"Century Gothic", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->btn_estadisticas->ForeColor = System::Drawing::SystemColors::ButtonFace;
+			this->btn_estadisticas->Location = System::Drawing::Point(0, 556);
+			this->btn_estadisticas->Name = L"btn_estadisticas";
+			this->btn_estadisticas->Size = System::Drawing::Size(225, 52);
+			this->btn_estadisticas->TabIndex = 4;
+			this->btn_estadisticas->Text = L"Estadisticas";
+			this->btn_estadisticas->UseVisualStyleBackColor = false;
+			this->btn_estadisticas->Click += gcnew System::EventHandler(this, &Inicio::btn_estadisticas_Click);
 			// 
 			// Inicio
 			// 
@@ -241,5 +262,14 @@ namespace Hamburgueseria {
 		}
 		this->AbrirFormulario(gcnew Hamburgueseria::Ventas);
 	}
+	private: System::Void btn_estadisticas_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (pictureBox1 != nullptr)
+		{
+			pictureBox1->Visible = false;
+		}
+		this->AbrirFormulario(gcnew Hamburgueseria::Estadisticas);
+	}
+
+
 };
 }

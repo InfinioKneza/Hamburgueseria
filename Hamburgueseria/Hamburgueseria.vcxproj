@@ -114,6 +114,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Reference Include="MySql.Data">
+      <HintPath>..\..\..\..\..\Program Files (x86)\MySQL\MySQL Connector NET 8.1.0\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -121,12 +124,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Agregar.cpp" />
+    <ClCompile Include="DB.cpp" />
+    <ClCompile Include="Estadisticas.cpp" />
     <ClCompile Include="Inicio.cpp" />
     <ClCompile Include="Inventario.cpp" />
     <ClCompile Include="Productos.cpp" />
     <ClCompile Include="Ventas.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Agregar.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="DB.h" />
+    <ClInclude Include="Estadisticas.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="Inicio.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -141,6 +154,12 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Agregar.resx">
+      <DependentUpon>Agregar.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Estadisticas.resx">
+      <DependentUpon>Estadisticas.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Inicio.resx">
       <DependentUpon>Inicio.h</DependentUpon>
     </EmbeddedResource>
