@@ -151,6 +151,7 @@ namespace Hamburgueseria {
 	{
 		this->data->AbrirConexion();
 		this->data_grid_ventas->DataSource = this->data->getDataVentas();
+		this->data_grid_ventas->Columns["id"]->Visible = false;
 		this->data->CerrarConexion();
 	}
 };

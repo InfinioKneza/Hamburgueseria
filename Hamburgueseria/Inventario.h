@@ -109,6 +109,7 @@ namespace Hamburgueseria {
 	{
 		this->data->AbrirConexion();
 		this->data_grid_inventario->DataSource = this->data->getDataInventario();
+		this->data_grid_inventario->Columns["id"]->Visible = false;
 		this->data->CerrarConexion();
 	}
 };

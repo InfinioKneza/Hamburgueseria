@@ -124,16 +124,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Agregar.cpp" />
+    <ClCompile Include="AgregarProducto.cpp" />
     <ClCompile Include="DB.cpp" />
     <ClCompile Include="Estadisticas.cpp" />
     <ClCompile Include="Inicio.cpp" />
     <ClCompile Include="Inventario.cpp" />
+    <ClCompile Include="ModificarProducto.cpp" />
     <ClCompile Include="Productos.cpp" />
     <ClCompile Include="Ventas.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Agregar.h">
+    <ClInclude Include="AgregarProducto.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="DB.h" />
@@ -146,6 +147,9 @@
     <ClInclude Include="Inventario.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="ModificarProducto.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="Productos.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -154,8 +158,8 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Agregar.resx">
-      <DependentUpon>Agregar.h</DependentUpon>
+    <EmbeddedResource Include="AgregarProducto.resx">
+      <DependentUpon>AgregarProducto.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Estadisticas.resx">
       <DependentUpon>Estadisticas.h</DependentUpon>
@@ -165,6 +169,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Inventario.resx">
       <DependentUpon>Inventario.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModificarProducto.resx">
+      <DependentUpon>ModificarProducto.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Productos.resx">
       <DependentUpon>Productos.h</DependentUpon>

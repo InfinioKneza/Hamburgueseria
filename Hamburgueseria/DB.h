@@ -16,6 +16,7 @@ public:
 	DataTable^ getDataInventario();
 	void AbrirConexion();
 	void CerrarConexion();
-	//void InsertarVenta(String^, String^, double^, );
+	void InsertarProducto(String^,double,double,double);
+	void ModProducto(int, String^, double, double, double);
 };
 
