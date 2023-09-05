@@ -46,14 +46,17 @@ namespace Hamburgueseria {
 	private: System::Windows::Forms::Button^ btn_cancelar;
 	private: System::Windows::Forms::TextBox^ txt_cliente;
 	private: System::Windows::Forms::TextBox^ txt_hora;
-	private: System::Windows::Forms::TextBox^ txt_tipo_pago;
-	private: System::Windows::Forms::TextBox^ txt_pago;
+
+
 
 
 
 
 
 	private: DB^ data;
+	private: System::Windows::Forms::ComboBox^ lista_tipo_pago;
+	private: System::Windows::Forms::NumericUpDown^ numeric_pago;
+
 
 
 
@@ -83,8 +86,9 @@ namespace Hamburgueseria {
 			this->btn_cancelar = (gcnew System::Windows::Forms::Button());
 			this->txt_cliente = (gcnew System::Windows::Forms::TextBox());
 			this->txt_hora = (gcnew System::Windows::Forms::TextBox());
-			this->txt_tipo_pago = (gcnew System::Windows::Forms::TextBox());
-			this->txt_pago = (gcnew System::Windows::Forms::TextBox());
+			this->lista_tipo_pago = (gcnew System::Windows::Forms::ComboBox());
+			this->numeric_pago = (gcnew System::Windows::Forms::NumericUpDown());
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numeric_pago))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// label1
@@ -187,23 +191,27 @@ namespace Hamburgueseria {
 			this->txt_hora->Size = System::Drawing::Size(248, 24);
 			this->txt_hora->TabIndex = 7;
 			// 
-			// txt_tipo_pago
+			// lista_tipo_pago
 			// 
-			this->txt_tipo_pago->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->lista_tipo_pago->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->lista_tipo_pago->FormattingEnabled = true;
+			this->lista_tipo_pago->Items->AddRange(gcnew cli::array< System::Object^  >(2) { L"Mp", L"Efectivo" });
+			this->lista_tipo_pago->Location = System::Drawing::Point(246, 177);
+			this->lista_tipo_pago->Name = L"lista_tipo_pago";
+			this->lista_tipo_pago->Size = System::Drawing::Size(248, 26);
+			this->lista_tipo_pago->TabIndex = 10;
+			// 
+			// numeric_pago
+			// 
+			this->numeric_pago->DecimalPlaces = 2;
+			this->numeric_pago->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->txt_tipo_pago->Location = System::Drawing::Point(246, 177);
-			this->txt_tipo_pago->Name = L"txt_tipo_pago";
-			this->txt_tipo_pago->Size = System::Drawing::Size(248, 24);
-			this->txt_tipo_pago->TabIndex = 8;
-			// 
-			// txt_pago
-			// 
-			this->txt_pago->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->txt_pago->Location = System::Drawing::Point(246, 236);
-			this->txt_pago->Name = L"txt_pago";
-			this->txt_pago->Size = System::Drawing::Size(248, 24);
-			this->txt_pago->TabIndex = 9;
+			this->numeric_pago->Location = System::Drawing::Point(246, 236);
+			this->numeric_pago->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1215752191, 23, 0, 131072 });
+			this->numeric_pago->Name = L"numeric_pago";
+			this->numeric_pago->Size = System::Drawing::Size(248, 24);
+			this->numeric_pago->TabIndex = 24;
 			// 
 			// AgregarVenta
 			// 
@@ -212,8 +220,8 @@ namespace Hamburgueseria {
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(26)), static_cast<System::Int32>(static_cast<System::Byte>(26)),
 				static_cast<System::Int32>(static_cast<System::Byte>(26)));
 			this->ClientSize = System::Drawing::Size(605, 387);
-			this->Controls->Add(this->txt_pago);
-			this->Controls->Add(this->txt_tipo_pago);
+			this->Controls->Add(this->numeric_pago);
+			this->Controls->Add(this->lista_tipo_pago);
 			this->Controls->Add(this->txt_hora);
 			this->Controls->Add(this->txt_cliente);
 			this->Controls->Add(this->btn_cancelar);
@@ -225,6 +233,7 @@ namespace Hamburgueseria {
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Name = L"AgregarVenta";
 			this->Text = L"Agregar Venta";
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numeric_pago))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -234,16 +243,16 @@ namespace Hamburgueseria {
 		this->Close();
 	}
 	private: System::Void btn_guardar_venta_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (String::IsNullOrEmpty(this->txt_cliente->Text) || String::IsNullOrEmpty(this->txt_hora->Text) || String::IsNullOrEmpty(this->txt_tipo_pago->Text) || String::IsNullOrEmpty(this->txt_pago->Text))
+		if (String::IsNullOrEmpty(this->txt_cliente->Text) || String::IsNullOrEmpty(this->txt_hora->Text) || String::IsNullOrEmpty(this->lista_tipo_pago->Text) || String::IsNullOrEmpty(numeric_pago->Text))
 		{
 			// El cuadro de texto está vacío
 			MessageBox::Show("Rellene todos los campos porfavor", "Advertencia");
 		}
 		else
 		{
-			double pago = double::Parse(txt_pago->Text);
+	
 			this->data->AbrirConexion();
-			this->data->InsertarVenta(this->txt_cliente->Text, this->txt_hora->Text, this->txt_tipo_pago->Text, pago);
+			this->data->InsertarVenta(this->txt_cliente->Text, this->txt_hora->Text, this->lista_tipo_pago->Text, this->numeric_pago->Value);
 			this->data->CerrarConexion();
 			this->Close();
 		}

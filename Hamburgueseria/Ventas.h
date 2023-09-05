@@ -192,7 +192,7 @@ namespace Hamburgueseria {
 		// Crea un formulario vacío (puede ser un formulario invisible)
 		Form^ form = gcnew Form();
 
-		System::Windows::Forms::DialogResult resultado = MessageBox::Show(form, "¿Estás seguro de que deseas eliminar todos los elementos?", "Advertencia", MessageBoxButtons::OKCancel, MessageBoxIcon::Warning);
+		System::Windows::Forms::DialogResult resultado = MessageBox::Show(form, "¿Estás seguro de que deseas eliminar todas las ventas?", "Advertencia", MessageBoxButtons::OKCancel, MessageBoxIcon::Warning);
 
 		if (resultado == System::Windows::Forms::DialogResult::OK)
 		{
@@ -200,7 +200,7 @@ namespace Hamburgueseria {
 			this->data->AbrirConexion();
 			this->data->EliminarTodosVenta();
 			this->data->CerrarConexion();
-			MessageBox::Show("Los elementos han sido eliminados.", "Acción exitosa");
+			MessageBox::Show("Las ventas han sido eliminadas.", "Acción exitosa");
 			this->Consulta();
 		}
 		else if (resultado == System::Windows::Forms::DialogResult::Cancel)
@@ -222,7 +222,7 @@ namespace Hamburgueseria {
 			String^ cliente = Convert::ToString(data_grid_ventas->SelectedRows[0]->Cells[1]->Value);
 			String^ hora = Convert::ToString(data_grid_ventas->SelectedRows[0]->Cells[2]->Value);
 			String^ tipo = Convert::ToString(data_grid_ventas->SelectedRows[0]->Cells[3]->Value);
-			String^ pago = Convert::ToString(data_grid_ventas->SelectedRows[0]->Cells[4]->Value);
+			Decimal pago = Convert::ToDecimal(data_grid_ventas->SelectedRows[0]->Cells[4]->Value);
 			Hamburgueseria::ModificarVenta^ modi = gcnew Hamburgueseria::ModificarVenta(id, cliente, hora, tipo, pago);
 			modi->ShowDialog();
 			this->Consulta();

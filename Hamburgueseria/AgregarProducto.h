@@ -45,10 +45,13 @@ namespace Hamburgueseria {
 	private: System::Windows::Forms::Button^ btn_cancelar;
 
 	private: System::Windows::Forms::TextBox^ txt_nombre_producto;
-	private: System::Windows::Forms::TextBox^ txt_simple;
-	private: System::Windows::Forms::TextBox^ txt_doble;
-	private: System::Windows::Forms::TextBox^ txt_triple;
+
+
+
 	private: DB^ data;
+	private: System::Windows::Forms::NumericUpDown^ numeric_simple;
+	private: System::Windows::Forms::NumericUpDown^ numeric_doble;
+	private: System::Windows::Forms::NumericUpDown^ numeric_triple;
 
 
 
@@ -77,9 +80,12 @@ namespace Hamburgueseria {
 			this->btn_guardar_producto = (gcnew System::Windows::Forms::Button());
 			this->btn_cancelar = (gcnew System::Windows::Forms::Button());
 			this->txt_nombre_producto = (gcnew System::Windows::Forms::TextBox());
-			this->txt_simple = (gcnew System::Windows::Forms::TextBox());
-			this->txt_doble = (gcnew System::Windows::Forms::TextBox());
-			this->txt_triple = (gcnew System::Windows::Forms::TextBox());
+			this->numeric_simple = (gcnew System::Windows::Forms::NumericUpDown());
+			this->numeric_doble = (gcnew System::Windows::Forms::NumericUpDown());
+			this->numeric_triple = (gcnew System::Windows::Forms::NumericUpDown());
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numeric_simple))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numeric_doble))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numeric_triple))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// label1
@@ -173,32 +179,38 @@ namespace Hamburgueseria {
 			this->txt_nombre_producto->Size = System::Drawing::Size(248, 24);
 			this->txt_nombre_producto->TabIndex = 6;
 			// 
-			// txt_simple
+			// numeric_simple
 			// 
-			this->txt_simple->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->numeric_simple->DecimalPlaces = 2;
+			this->numeric_simple->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->txt_simple->Location = System::Drawing::Point(246, 118);
-			this->txt_simple->Name = L"txt_simple";
-			this->txt_simple->Size = System::Drawing::Size(248, 24);
-			this->txt_simple->TabIndex = 7;
+			this->numeric_simple->Location = System::Drawing::Point(246, 112);
+			this->numeric_simple->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1215752191, 23, 0, 131072 });
+			this->numeric_simple->Name = L"numeric_simple";
+			this->numeric_simple->Size = System::Drawing::Size(248, 24);
+			this->numeric_simple->TabIndex = 25;
 			// 
-			// txt_doble
+			// numeric_doble
 			// 
-			this->txt_doble->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->numeric_doble->DecimalPlaces = 2;
+			this->numeric_doble->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->txt_doble->Location = System::Drawing::Point(246, 177);
-			this->txt_doble->Name = L"txt_doble";
-			this->txt_doble->Size = System::Drawing::Size(248, 24);
-			this->txt_doble->TabIndex = 8;
+			this->numeric_doble->Location = System::Drawing::Point(246, 177);
+			this->numeric_doble->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1215752191, 23, 0, 131072 });
+			this->numeric_doble->Name = L"numeric_doble";
+			this->numeric_doble->Size = System::Drawing::Size(248, 24);
+			this->numeric_doble->TabIndex = 26;
 			// 
-			// txt_triple
+			// numeric_triple
 			// 
-			this->txt_triple->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->numeric_triple->DecimalPlaces = 2;
+			this->numeric_triple->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->txt_triple->Location = System::Drawing::Point(246, 236);
-			this->txt_triple->Name = L"txt_triple";
-			this->txt_triple->Size = System::Drawing::Size(248, 24);
-			this->txt_triple->TabIndex = 9;
+			this->numeric_triple->Location = System::Drawing::Point(246, 239);
+			this->numeric_triple->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1215752191, 23, 0, 131072 });
+			this->numeric_triple->Name = L"numeric_triple";
+			this->numeric_triple->Size = System::Drawing::Size(248, 24);
+			this->numeric_triple->TabIndex = 27;
 			// 
 			// AgregarProducto
 			// 
@@ -207,9 +219,9 @@ namespace Hamburgueseria {
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(26)), static_cast<System::Int32>(static_cast<System::Byte>(26)),
 				static_cast<System::Int32>(static_cast<System::Byte>(26)));
 			this->ClientSize = System::Drawing::Size(605, 387);
-			this->Controls->Add(this->txt_triple);
-			this->Controls->Add(this->txt_doble);
-			this->Controls->Add(this->txt_simple);
+			this->Controls->Add(this->numeric_triple);
+			this->Controls->Add(this->numeric_doble);
+			this->Controls->Add(this->numeric_simple);
 			this->Controls->Add(this->txt_nombre_producto);
 			this->Controls->Add(this->btn_cancelar);
 			this->Controls->Add(this->btn_guardar_producto);
@@ -220,6 +232,9 @@ namespace Hamburgueseria {
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Name = L"AgregarProducto";
 			this->Text = L"Agregar Producto";
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numeric_simple))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numeric_doble))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numeric_triple))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -229,18 +244,15 @@ namespace Hamburgueseria {
 		this->Close();
 	}
 	private: System::Void btn_guardar_producto_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (String::IsNullOrEmpty(this->txt_nombre_producto->Text) || String::IsNullOrEmpty(this->txt_simple->Text) || String::IsNullOrEmpty(this->txt_doble->Text) || String::IsNullOrEmpty(this->txt_triple->Text))
+		if (String::IsNullOrEmpty(this->txt_nombre_producto->Text) || String::IsNullOrEmpty(this->numeric_simple->Text) || String::IsNullOrEmpty(this->numeric_doble->Text) || String::IsNullOrEmpty(this->numeric_triple->Text))
 		{
 			// El cuadro de texto está vacío
 			MessageBox::Show("Rellene todos los campos porfavor", "Advertencia");
 		}
 		else
 		{
-			double simple = double::Parse(txt_simple->Text);
-			double doble = double::Parse(txt_doble->Text);
-			double triple = double::Parse(txt_triple->Text);
 			this->data->AbrirConexion();
-			this->data->InsertarProducto(this->txt_nombre_producto->Text, simple, doble, triple);
+			this->data->InsertarProducto(this->txt_nombre_producto->Text, this->numeric_simple->Value, this->numeric_doble->Value, this->numeric_triple->Value);
 			this->data->CerrarConexion();
 			this->Close();
 		}

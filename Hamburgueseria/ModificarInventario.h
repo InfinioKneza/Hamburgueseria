@@ -16,7 +16,7 @@ namespace Hamburgueseria {
 	public ref class ModificarInventario : public System::Windows::Forms::Form
 	{
 	public:
-		ModificarInventario(int id, String^ n, String^ s, String^ d)
+		ModificarInventario(int id, String^ n, int s, Decimal d)
 		{
 			InitializeComponent();
 			//
@@ -24,8 +24,8 @@ namespace Hamburgueseria {
 			//
 			this->id = id;
 			this->txt_nombre_inventario->Text = n;
-			this->txt_cantidad->Text = s;
-			this->txt_pu->Text = d;
+			this->numeric_cantidad->Value = s;
+			this->numeric_precio_unitario->Value = d;
 			this->data = gcnew DB();
 		}
 
@@ -40,12 +40,12 @@ namespace Hamburgueseria {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::TextBox^ txt_pu;
-	protected:
 
 	protected:
 
-	private: System::Windows::Forms::TextBox^ txt_cantidad;
+	protected:
+
+
 	private: System::Windows::Forms::TextBox^ txt_nombre_inventario;
 
 
@@ -60,6 +60,9 @@ namespace Hamburgueseria {
 	private: DB^ data;
 	private: int id;
 	private: System::Windows::Forms::Button^ btn_eliminar_inventario;
+	private: System::Windows::Forms::NumericUpDown^ numeric_precio_unitario;
+	private: System::Windows::Forms::NumericUpDown^ numeric_cantidad;
+
 
 
 
@@ -81,8 +84,6 @@ namespace Hamburgueseria {
 		void InitializeComponent(void)
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(ModificarInventario::typeid));
-			this->txt_pu = (gcnew System::Windows::Forms::TextBox());
-			this->txt_cantidad = (gcnew System::Windows::Forms::TextBox());
 			this->txt_nombre_inventario = (gcnew System::Windows::Forms::TextBox());
 			this->btn_cancelar_inventario = (gcnew System::Windows::Forms::Button());
 			this->btn_guardar_inventario = (gcnew System::Windows::Forms::Button());
@@ -90,31 +91,17 @@ namespace Hamburgueseria {
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->btn_eliminar_inventario = (gcnew System::Windows::Forms::Button());
+			this->numeric_precio_unitario = (gcnew System::Windows::Forms::NumericUpDown());
+			this->numeric_cantidad = (gcnew System::Windows::Forms::NumericUpDown());
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numeric_precio_unitario))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numeric_cantidad))->BeginInit();
 			this->SuspendLayout();
-			// 
-			// txt_pu
-			// 
-			this->txt_pu->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->txt_pu->Location = System::Drawing::Point(250, 225);
-			this->txt_pu->Name = L"txt_pu";
-			this->txt_pu->Size = System::Drawing::Size(248, 24);
-			this->txt_pu->TabIndex = 18;
-			// 
-			// txt_cantidad
-			// 
-			this->txt_cantidad->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->txt_cantidad->Location = System::Drawing::Point(250, 166);
-			this->txt_cantidad->Name = L"txt_cantidad";
-			this->txt_cantidad->Size = System::Drawing::Size(248, 24);
-			this->txt_cantidad->TabIndex = 17;
 			// 
 			// txt_nombre_inventario
 			// 
 			this->txt_nombre_inventario->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->txt_nombre_inventario->Location = System::Drawing::Point(250, 102);
+			this->txt_nombre_inventario->Location = System::Drawing::Point(279, 103);
 			this->txt_nombre_inventario->Name = L"txt_nombre_inventario";
 			this->txt_nombre_inventario->Size = System::Drawing::Size(248, 24);
 			this->txt_nombre_inventario->TabIndex = 16;
@@ -128,7 +115,7 @@ namespace Hamburgueseria {
 			this->btn_cancelar_inventario->Font = (gcnew System::Drawing::Font(L"Century Gothic", 11.25F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
 			this->btn_cancelar_inventario->ForeColor = System::Drawing::SystemColors::ButtonFace;
-			this->btn_cancelar_inventario->Location = System::Drawing::Point(352, 310);
+			this->btn_cancelar_inventario->Location = System::Drawing::Point(381, 310);
 			this->btn_cancelar_inventario->Name = L"btn_cancelar_inventario";
 			this->btn_cancelar_inventario->Size = System::Drawing::Size(146, 40);
 			this->btn_cancelar_inventario->TabIndex = 15;
@@ -145,7 +132,7 @@ namespace Hamburgueseria {
 			this->btn_guardar_inventario->Font = (gcnew System::Drawing::Font(L"Century Gothic", 11.25F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
 			this->btn_guardar_inventario->ForeColor = System::Drawing::SystemColors::ButtonFace;
-			this->btn_guardar_inventario->Location = System::Drawing::Point(49, 310);
+			this->btn_guardar_inventario->Location = System::Drawing::Point(87, 310);
 			this->btn_guardar_inventario->Name = L"btn_guardar_inventario";
 			this->btn_guardar_inventario->Size = System::Drawing::Size(146, 40);
 			this->btn_guardar_inventario->TabIndex = 14;
@@ -159,7 +146,7 @@ namespace Hamburgueseria {
 			this->label3->Font = (gcnew System::Drawing::Font(L"Century Gothic", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label3->ForeColor = System::Drawing::SystemColors::ButtonFace;
-			this->label3->Location = System::Drawing::Point(54, 225);
+			this->label3->Location = System::Drawing::Point(83, 226);
 			this->label3->Name = L"label3";
 			this->label3->Size = System::Drawing::Size(152, 24);
 			this->label3->TabIndex = 12;
@@ -171,7 +158,7 @@ namespace Hamburgueseria {
 			this->label2->Font = (gcnew System::Drawing::Font(L"Century Gothic", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label2->ForeColor = System::Drawing::SystemColors::ButtonFace;
-			this->label2->Location = System::Drawing::Point(54, 160);
+			this->label2->Location = System::Drawing::Point(83, 161);
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(106, 24);
 			this->label2->TabIndex = 11;
@@ -183,7 +170,7 @@ namespace Hamburgueseria {
 			this->label1->Font = (gcnew System::Drawing::Font(L"Century Gothic", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label1->ForeColor = System::Drawing::SystemColors::ButtonFace;
-			this->label1->Location = System::Drawing::Point(54, 100);
+			this->label1->Location = System::Drawing::Point(83, 101);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(95, 24);
 			this->label1->TabIndex = 10;
@@ -206,6 +193,27 @@ namespace Hamburgueseria {
 			this->btn_eliminar_inventario->UseVisualStyleBackColor = false;
 			this->btn_eliminar_inventario->Click += gcnew System::EventHandler(this, &ModificarInventario::btn_eliminar_inventario_Click);
 			// 
+			// numeric_precio_unitario
+			// 
+			this->numeric_precio_unitario->DecimalPlaces = 2;
+			this->numeric_precio_unitario->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->numeric_precio_unitario->Location = System::Drawing::Point(279, 229);
+			this->numeric_precio_unitario->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1215752191, 23, 0, 131072 });
+			this->numeric_precio_unitario->Name = L"numeric_precio_unitario";
+			this->numeric_precio_unitario->Size = System::Drawing::Size(248, 24);
+			this->numeric_precio_unitario->TabIndex = 29;
+			// 
+			// numeric_cantidad
+			// 
+			this->numeric_cantidad->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->numeric_cantidad->Location = System::Drawing::Point(279, 165);
+			this->numeric_cantidad->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1410065407, 2, 0, 0 });
+			this->numeric_cantidad->Name = L"numeric_cantidad";
+			this->numeric_cantidad->Size = System::Drawing::Size(248, 24);
+			this->numeric_cantidad->TabIndex = 30;
+			// 
 			// ModificarInventario
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -213,9 +221,9 @@ namespace Hamburgueseria {
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(26)), static_cast<System::Int32>(static_cast<System::Byte>(26)),
 				static_cast<System::Int32>(static_cast<System::Byte>(26)));
 			this->ClientSize = System::Drawing::Size(605, 387);
+			this->Controls->Add(this->numeric_cantidad);
+			this->Controls->Add(this->numeric_precio_unitario);
 			this->Controls->Add(this->btn_eliminar_inventario);
-			this->Controls->Add(this->txt_pu);
-			this->Controls->Add(this->txt_cantidad);
 			this->Controls->Add(this->txt_nombre_inventario);
 			this->Controls->Add(this->btn_cancelar_inventario);
 			this->Controls->Add(this->btn_guardar_inventario);
@@ -225,6 +233,8 @@ namespace Hamburgueseria {
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Name = L"ModificarInventario";
 			this->Text = L"Modificar Inventario";
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numeric_precio_unitario))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numeric_cantidad))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -235,17 +245,16 @@ namespace Hamburgueseria {
 	}
 
 	private: System::Void btn_guardar_inventario_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (String::IsNullOrEmpty(this->txt_nombre_inventario->Text) || String::IsNullOrEmpty(this->txt_cantidad->Text) || String::IsNullOrEmpty(this->txt_pu->Text))
+		if (String::IsNullOrEmpty(this->txt_nombre_inventario->Text) || String::IsNullOrEmpty(this->numeric_cantidad->Text) || String::IsNullOrEmpty(this->numeric_precio_unitario->Text))
 		{
 			// El cuadro de texto está vacío
 			MessageBox::Show("Rellene todos los campos porfavor", "Advertencia");
 		}
 		else
 		{
-			int cantidad = int::Parse(txt_cantidad->Text);
-			double pu = double::Parse(txt_pu->Text);
+			int cantidad = Convert::ToInt32(this->numeric_cantidad->Value);
 			this->data->AbrirConexion();
-			this->data->ModInventario(id, this->txt_nombre_inventario->Text, cantidad, pu);
+			this->data->ModInventario(id, this->txt_nombre_inventario->Text, cantidad, this->numeric_precio_unitario->Value);
 			this->data->CerrarConexion();
 			this->Close();
 		}

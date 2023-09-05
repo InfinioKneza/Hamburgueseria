@@ -47,7 +47,7 @@ DataTable^ DB::getDataInventario()
 	return tabla;
 }
 
-void DB::InsertarProducto(String^ n, double s, double d, double t) {
+void DB::InsertarProducto(String^ n, Decimal s, Decimal d, Decimal t) {
 	String^ sql = "insert into producto(Nombre, Simple, Doble, Triple) values ('" + n + "','" + s + "','" + d + "','" + t + "')";
 	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
 	try
@@ -63,7 +63,7 @@ void DB::InsertarProducto(String^ n, double s, double d, double t) {
 	}
 }
 
-void DB::ModProducto(int id, String^ n, double s, double d, double t) {
+void DB::ModProducto(int id, String^ n, Decimal s, Decimal d, Decimal t) {
 	String^ sql = "update producto set Nombre = '" + n + "', Simple = '" + s + "', Doble = '" + d + "', Triple = '" + t + "' where id = '" + id + "'";
 	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
 	try
@@ -120,7 +120,7 @@ void DB::EliminarTodosProducto() {
 	}
 }
 
-void DB::InsertarInventario(String^ n, int c, double pu) {
+void DB::InsertarInventario(String^ n, int c, Decimal pu) {
 	String^ sql = "insert into inventario(Nombre, Cantidad, Precio_Unitario) values ('" + n + "','" + c + "','" + pu + "')";
 	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
 	try
@@ -149,7 +149,7 @@ void DB::InsertarInventario(String^ n, int c, double pu) {
 	}
 }
 
-void DB::ModInventario(int id, String^ n, int c, double pu) {
+void DB::ModInventario(int id, String^ n, int c, Decimal pu) {
 	String^ sql = "update inventario set Nombre = '" + n + "', Cantidad = '" + c + "', Precio_Unitario = '" + pu + "' where id = '" + id + "'";
 	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
 	try
@@ -222,7 +222,7 @@ void DB::EliminarTodosInventario() {
 	}
 }
 
-void DB::InsertarVenta(String^ c, String^ h, String^ tp, double p) {
+void DB::InsertarVenta(String^ c, String^ h, String^ tp, Decimal p) {
 	String^ sql = "insert into venta(Cliente, Hora, Tipo_Pago, Pago) values ('" + c + "','" + h + "','" + tp + "','" + p + "')";
 	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
 	try
@@ -238,7 +238,7 @@ void DB::InsertarVenta(String^ c, String^ h, String^ tp, double p) {
 	}
 }
 
-void DB::ModVenta(int id, String^ c, String^ h, String^ tp, double p) {
+void DB::ModVenta(int id, String^ c, String^ h, String^ tp, Decimal p) {
 	String^ sql = "update venta set Cliente = '" + c + "', Hora = '" + h + "', Tipo_Pago = '" + tp + "', Pago = '" + p + "' where id = '" + id + "'";
 	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
 	try

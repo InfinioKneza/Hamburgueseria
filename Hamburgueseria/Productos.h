@@ -196,9 +196,9 @@ namespace Hamburgueseria {
 		{
 			int id = Convert::ToInt32(data_grid_productos->SelectedRows[0]->Cells[0]->Value);
 			String^ nombre = Convert::ToString(data_grid_productos->SelectedRows[0]->Cells[1]->Value);
-			String^ simple = Convert::ToString(data_grid_productos->SelectedRows[0]->Cells[2]->Value);
-			String^ doble = Convert::ToString(data_grid_productos->SelectedRows[0]->Cells[3]->Value);
-			String^ triple = Convert::ToString(data_grid_productos->SelectedRows[0]->Cells[4]->Value);
+			Decimal simple = Convert::ToDecimal(data_grid_productos->SelectedRows[0]->Cells[2]->Value);
+			Decimal doble = Convert::ToDecimal(data_grid_productos->SelectedRows[0]->Cells[3]->Value);
+			Decimal triple = Convert::ToDecimal(data_grid_productos->SelectedRows[0]->Cells[4]->Value);
 			Hamburgueseria::ModificarProducto^ modi = gcnew Hamburgueseria::ModificarProducto(id, nombre, simple, doble, triple);
 			modi->ShowDialog();
 			this->Consulta();

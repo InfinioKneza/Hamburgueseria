@@ -216,8 +216,8 @@ namespace Hamburgueseria {
 		{
 			int id = Convert::ToInt32(data_grid_inventario->SelectedRows[0]->Cells[0]->Value);
 			String^ nombre = Convert::ToString(data_grid_inventario->SelectedRows[0]->Cells[1]->Value);
-			String^ cantidad = Convert::ToString(data_grid_inventario->SelectedRows[0]->Cells[2]->Value);
-			String^ pu = Convert::ToString(data_grid_inventario->SelectedRows[0]->Cells[3]->Value);
+			int cantidad = Convert::ToInt16(data_grid_inventario->SelectedRows[0]->Cells[2]->Value);
+			Decimal pu = Convert::ToDecimal(data_grid_inventario->SelectedRows[0]->Cells[3]->Value);
 			Hamburgueseria::ModificarInventario^ modi = gcnew Hamburgueseria::ModificarInventario(id, nombre, cantidad, pu);
 			modi->ShowDialog();
 			this->Consulta();
