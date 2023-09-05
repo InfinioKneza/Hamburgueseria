@@ -124,17 +124,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AgregarInventario.cpp" />
     <ClCompile Include="AgregarProducto.cpp" />
+    <ClCompile Include="AgregarVenta.cpp" />
     <ClCompile Include="DB.cpp" />
     <ClCompile Include="Estadisticas.cpp" />
     <ClCompile Include="Inicio.cpp" />
     <ClCompile Include="Inventario.cpp" />
+    <ClCompile Include="ModificarInventario.cpp" />
     <ClCompile Include="ModificarProducto.cpp" />
+    <ClCompile Include="ModificarVenta.cpp" />
     <ClCompile Include="Productos.cpp" />
     <ClCompile Include="Ventas.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AgregarInventario.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="AgregarProducto.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="AgregarVenta.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="DB.h" />
@@ -147,7 +157,13 @@
     <ClInclude Include="Inventario.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="ModificarInventario.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="ModificarProducto.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="ModificarVenta.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Productos.h">
@@ -158,8 +174,14 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AgregarInventario.resx">
+      <DependentUpon>AgregarInventario.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AgregarProducto.resx">
       <DependentUpon>AgregarProducto.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AgregarVenta.resx">
+      <DependentUpon>AgregarVenta.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Estadisticas.resx">
       <DependentUpon>Estadisticas.h</DependentUpon>
@@ -170,8 +192,14 @@
     <EmbeddedResource Include="Inventario.resx">
       <DependentUpon>Inventario.h</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ModificarInventario.resx">
+      <DependentUpon>ModificarInventario.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ModificarProducto.resx">
       <DependentUpon>ModificarProducto.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModificarVenta.resx">
+      <DependentUpon>ModificarVenta.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Productos.resx">
       <DependentUpon>Productos.h</DependentUpon>

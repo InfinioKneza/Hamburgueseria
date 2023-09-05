@@ -87,6 +87,7 @@ namespace Hamburgueseria {
 			// 
 			// data_grid_productos
 			// 
+			this->data_grid_productos->AllowUserToAddRows = false;
 			this->data_grid_productos->AllowUserToResizeRows = false;
 			this->data_grid_productos->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::DisplayedCells;
 			this->data_grid_productos->BackgroundColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(26)),
@@ -114,7 +115,7 @@ namespace Hamburgueseria {
 			dataGridViewCellStyle2->SelectionForeColor = System::Drawing::Color::White;
 			dataGridViewCellStyle2->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
 			this->data_grid_productos->DefaultCellStyle = dataGridViewCellStyle2;
-			this->data_grid_productos->Location = System::Drawing::Point(77, 127);
+			this->data_grid_productos->Location = System::Drawing::Point(77, 130);
 			this->data_grid_productos->Name = L"data_grid_productos";
 			this->data_grid_productos->ReadOnly = true;
 			this->data_grid_productos->RowHeadersVisible = false;
@@ -145,6 +146,7 @@ namespace Hamburgueseria {
 			this->btn_borrartodo_producto->TabIndex = 5;
 			this->btn_borrartodo_producto->Text = L"Eliminar todos";
 			this->btn_borrartodo_producto->UseVisualStyleBackColor = true;
+			this->btn_borrartodo_producto->Click += gcnew System::EventHandler(this, &Productos::btn_borrartodo_producto_Click);
 			// 
 			// Productos
 			// 
@@ -178,22 +180,50 @@ namespace Hamburgueseria {
 		this->data_grid_productos->Columns["id"]->Visible = false;
 		this->data->CerrarConexion();
 	}
+
 	private: System::Void btn_agregar_producto_Click(System::Object^ sender, System::EventArgs^ e) {
 		Hamburgueseria::AgregarProducto^ agregarProducto = gcnew Hamburgueseria::AgregarProducto();
 		agregarProducto->ShowDialog();
 		this->Consulta();
 	}
+
 	private: System::Void data_grid_productos_DoubleClick(System::Object^ sender, System::EventArgs^ e) {
-		int id = Convert::ToInt32(data_grid_productos->SelectedRows[0]->Cells[0]->Value);
-		String^ nombre = Convert::ToString(data_grid_productos->SelectedRows[0]->Cells[1]->Value);
-		String^ simple = Convert::ToString(data_grid_productos->SelectedRows[0]->Cells[2]->Value);
-		String^ doble = Convert::ToString(data_grid_productos->SelectedRows[0]->Cells[3]->Value);
-		String^ triple = Convert::ToString(data_grid_productos->SelectedRows[0]->Cells[4]->Value);
-		Hamburgueseria::ModificarProducto^ modi = gcnew Hamburgueseria::ModificarProducto(id, nombre, simple, doble, triple);
-		modi->ShowDialog();
-		this->Consulta();
-		
+		if (data_grid_productos->RowCount == 0)
+		{
+			MessageBox::Show("No existen datos a modificar", "Advertencia");
+		}
+		else
+		{
+			int id = Convert::ToInt32(data_grid_productos->SelectedRows[0]->Cells[0]->Value);
+			String^ nombre = Convert::ToString(data_grid_productos->SelectedRows[0]->Cells[1]->Value);
+			String^ simple = Convert::ToString(data_grid_productos->SelectedRows[0]->Cells[2]->Value);
+			String^ doble = Convert::ToString(data_grid_productos->SelectedRows[0]->Cells[3]->Value);
+			String^ triple = Convert::ToString(data_grid_productos->SelectedRows[0]->Cells[4]->Value);
+			Hamburgueseria::ModificarProducto^ modi = gcnew Hamburgueseria::ModificarProducto(id, nombre, simple, doble, triple);
+			modi->ShowDialog();
+			this->Consulta();
+		}
 	}
 	
+	private: System::Void btn_borrartodo_producto_Click(System::Object^ sender, System::EventArgs^ e) {
+		// Crea un formulario vacío (puede ser un formulario invisible)
+		Form^ form = gcnew Form();
+
+		System::Windows::Forms::DialogResult resultado = MessageBox::Show(form, "¿Estás seguro de que deseas eliminar todos los productos?", "Advertencia", MessageBoxButtons::OKCancel, MessageBoxIcon::Warning);
+
+		if (resultado == System::Windows::Forms::DialogResult::OK)
+		{
+			// El usuario hizo clic en "Aceptar", realiza la acción de eliminación
+			this->data->AbrirConexion();
+			this->data->EliminarTodosProducto();
+			this->data->CerrarConexion();
+			MessageBox::Show("Los productos han sido eliminados.", "Acción exitosa");
+			this->Consulta();
+		}
+		else if (resultado == System::Windows::Forms::DialogResult::Cancel)
+		{
+			// El usuario hizo clic en "Cancelar", no hagas nada
+		}
+	}
 };
 }

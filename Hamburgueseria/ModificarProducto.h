@@ -54,6 +54,7 @@ namespace Hamburgueseria {
 	private: System::Windows::Forms::Label^ label1;
 	private: DB^ data;
 	private: int id;
+	private: System::Windows::Forms::Button^ btn_eliminar;
 
 
 
@@ -73,6 +74,7 @@ namespace Hamburgueseria {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(ModificarProducto::typeid));
 			this->txt_triple = (gcnew System::Windows::Forms::TextBox());
 			this->txt_doble = (gcnew System::Windows::Forms::TextBox());
 			this->txt_simple = (gcnew System::Windows::Forms::TextBox());
@@ -83,13 +85,14 @@ namespace Hamburgueseria {
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->btn_eliminar = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// txt_triple
 			// 
 			this->txt_triple->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->txt_triple->Location = System::Drawing::Point(246, 236);
+			this->txt_triple->Location = System::Drawing::Point(250, 263);
 			this->txt_triple->Name = L"txt_triple";
 			this->txt_triple->Size = System::Drawing::Size(248, 24);
 			this->txt_triple->TabIndex = 19;
@@ -98,7 +101,7 @@ namespace Hamburgueseria {
 			// 
 			this->txt_doble->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->txt_doble->Location = System::Drawing::Point(246, 177);
+			this->txt_doble->Location = System::Drawing::Point(250, 204);
 			this->txt_doble->Name = L"txt_doble";
 			this->txt_doble->Size = System::Drawing::Size(248, 24);
 			this->txt_doble->TabIndex = 18;
@@ -107,7 +110,7 @@ namespace Hamburgueseria {
 			// 
 			this->txt_simple->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->txt_simple->Location = System::Drawing::Point(246, 118);
+			this->txt_simple->Location = System::Drawing::Point(250, 145);
 			this->txt_simple->Name = L"txt_simple";
 			this->txt_simple->Size = System::Drawing::Size(248, 24);
 			this->txt_simple->TabIndex = 17;
@@ -116,7 +119,7 @@ namespace Hamburgueseria {
 			// 
 			this->txt_nombre_producto->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->txt_nombre_producto->Location = System::Drawing::Point(246, 54);
+			this->txt_nombre_producto->Location = System::Drawing::Point(250, 81);
 			this->txt_nombre_producto->Name = L"txt_nombre_producto";
 			this->txt_nombre_producto->Size = System::Drawing::Size(248, 24);
 			this->txt_nombre_producto->TabIndex = 16;
@@ -130,7 +133,7 @@ namespace Hamburgueseria {
 			this->button1->Font = (gcnew System::Drawing::Font(L"Century Gothic", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->button1->ForeColor = System::Drawing::SystemColors::ButtonFace;
-			this->button1->Location = System::Drawing::Point(348, 312);
+			this->button1->Location = System::Drawing::Point(352, 323);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(146, 40);
 			this->button1->TabIndex = 15;
@@ -147,7 +150,7 @@ namespace Hamburgueseria {
 			this->btn_guardar_producto->Font = (gcnew System::Drawing::Font(L"Century Gothic", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btn_guardar_producto->ForeColor = System::Drawing::SystemColors::ButtonFace;
-			this->btn_guardar_producto->Location = System::Drawing::Point(92, 312);
+			this->btn_guardar_producto->Location = System::Drawing::Point(49, 323);
 			this->btn_guardar_producto->Name = L"btn_guardar_producto";
 			this->btn_guardar_producto->Size = System::Drawing::Size(146, 40);
 			this->btn_guardar_producto->TabIndex = 14;
@@ -161,7 +164,7 @@ namespace Hamburgueseria {
 			this->label4->Font = (gcnew System::Drawing::Font(L"Century Gothic", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label4->ForeColor = System::Drawing::SystemColors::ButtonFace;
-			this->label4->Location = System::Drawing::Point(55, 236);
+			this->label4->Location = System::Drawing::Point(59, 263);
 			this->label4->Name = L"label4";
 			this->label4->Size = System::Drawing::Size(60, 24);
 			this->label4->TabIndex = 13;
@@ -173,7 +176,7 @@ namespace Hamburgueseria {
 			this->label3->Font = (gcnew System::Drawing::Font(L"Century Gothic", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label3->ForeColor = System::Drawing::SystemColors::ButtonFace;
-			this->label3->Location = System::Drawing::Point(50, 177);
+			this->label3->Location = System::Drawing::Point(54, 204);
 			this->label3->Name = L"label3";
 			this->label3->Size = System::Drawing::Size(73, 24);
 			this->label3->TabIndex = 12;
@@ -185,7 +188,7 @@ namespace Hamburgueseria {
 			this->label2->Font = (gcnew System::Drawing::Font(L"Century Gothic", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label2->ForeColor = System::Drawing::SystemColors::ButtonFace;
-			this->label2->Location = System::Drawing::Point(50, 112);
+			this->label2->Location = System::Drawing::Point(54, 139);
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(77, 24);
 			this->label2->TabIndex = 11;
@@ -197,11 +200,28 @@ namespace Hamburgueseria {
 			this->label1->Font = (gcnew System::Drawing::Font(L"Century Gothic", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label1->ForeColor = System::Drawing::SystemColors::ButtonFace;
-			this->label1->Location = System::Drawing::Point(41, 50);
+			this->label1->Location = System::Drawing::Point(45, 77);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(95, 24);
 			this->label1->TabIndex = 10;
 			this->label1->Text = L"Nombre";
+			// 
+			// btn_eliminar
+			// 
+			this->btn_eliminar->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(228)), static_cast<System::Int32>(static_cast<System::Byte>(4)),
+				static_cast<System::Int32>(static_cast<System::Byte>(3)));
+			this->btn_eliminar->FlatAppearance->BorderSize = 0;
+			this->btn_eliminar->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btn_eliminar->Font = (gcnew System::Drawing::Font(L"Century Gothic", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->btn_eliminar->ForeColor = System::Drawing::SystemColors::ButtonFace;
+			this->btn_eliminar->Location = System::Drawing::Point(436, 12);
+			this->btn_eliminar->Name = L"btn_eliminar";
+			this->btn_eliminar->Size = System::Drawing::Size(146, 40);
+			this->btn_eliminar->TabIndex = 20;
+			this->btn_eliminar->Text = L"Eliminar";
+			this->btn_eliminar->UseVisualStyleBackColor = false;
+			this->btn_eliminar->Click += gcnew System::EventHandler(this, &ModificarProducto::btn_eliminar_Click);
 			// 
 			// ModificarProducto
 			// 
@@ -210,6 +230,7 @@ namespace Hamburgueseria {
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(26)), static_cast<System::Int32>(static_cast<System::Byte>(26)),
 				static_cast<System::Int32>(static_cast<System::Byte>(26)));
 			this->ClientSize = System::Drawing::Size(605, 387);
+			this->Controls->Add(this->btn_eliminar);
 			this->Controls->Add(this->txt_triple);
 			this->Controls->Add(this->txt_doble);
 			this->Controls->Add(this->txt_simple);
@@ -220,6 +241,7 @@ namespace Hamburgueseria {
 			this->Controls->Add(this->label3);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->label1);
+			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Name = L"ModificarProducto";
 			this->Text = L"Modificar Producto";
 			this->ResumeLayout(false);
@@ -232,14 +254,44 @@ namespace Hamburgueseria {
 	}
 
 	private: System::Void btn_guardar_producto_Click(System::Object^ sender, System::EventArgs^ e) {
-		double simple = double::Parse(txt_simple->Text);
-		double doble = double::Parse(txt_doble->Text);
-		double triple = double::Parse(txt_triple->Text);
-		this->data->AbrirConexion();
-		this->data->ModProducto(id, this->txt_nombre_producto->Text, simple, doble, triple);
-		this->data->CerrarConexion();
-		MessageBox::Show(L"Modificado correctamente!");
-		this->Close();
+		if (String::IsNullOrEmpty(this->txt_nombre_producto->Text) || String::IsNullOrEmpty(this->txt_simple->Text) || String::IsNullOrEmpty(this->txt_doble->Text) || String::IsNullOrEmpty(this->txt_triple->Text))
+		{
+			// El cuadro de texto está vacío
+			MessageBox::Show("Rellene todos los campos porfavor", "Advertencia");
+		}
+		else
+		{
+			double simple = double::Parse(txt_simple->Text);
+			double doble = double::Parse(txt_doble->Text);
+			double triple = double::Parse(txt_triple->Text);
+			this->data->AbrirConexion();
+			this->data->ModProducto(id, this->txt_nombre_producto->Text, simple, doble, triple);
+			this->data->CerrarConexion();
+			this->Close();
+		}
+	}
+	private: System::Void btn_eliminar_Click(System::Object^ sender, System::EventArgs^ e) {
+		
+		// Crea un formulario vacío (puede ser un formulario invisible)
+		Form^ form = gcnew Form();
+
+		System::Windows::Forms::DialogResult resultado = MessageBox::Show(form, "¿Estás seguro de que deseas eliminar este producto?", "Advertencia", MessageBoxButtons::OKCancel, MessageBoxIcon::Warning);
+
+		if (resultado == System::Windows::Forms::DialogResult::OK)
+		{
+			// El usuario hizo clic en "Aceptar", realiza la acción de eliminación
+			this->data->AbrirConexion();
+			this->data->EliminarProducto(id);
+			this->data->CerrarConexion();
+			MessageBox::Show("El producto ha sido eliminado.", "Acción completada");
+			this->Close();
+		}
+		else if (resultado == System::Windows::Forms::DialogResult::Cancel)
+		{
+			// El usuario hizo clic en "Cancelar", no hagas nada
+			MessageBox::Show("La eliminación ha sido cancelada.", "Acción completada");
+		}
+
 	}
 };
 }
