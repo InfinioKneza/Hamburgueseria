@@ -29,7 +29,7 @@ DataTable^ DB::getDataProductos()
 
 DataTable^ DB::getDataVentas()
 {
-	String^ sql = "Select id, cliente as 'Cliente', hora as 'Hora de entrega', tipo_pago as 'Tipo de pago', pago as 'Pago' from venta";
+	String^ sql = "Select id, cliente as 'Cliente', hora as 'Hora de entrega', tipo_pago as 'Tipo de pago', pago as 'Pago', simple as 'Simple', doble as 'Doble', triple as 'Triple' from venta";
 	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
 	MySqlDataAdapter^ data = gcnew MySqlDataAdapter(cursor);
 	DataTable^ tabla = gcnew DataTable();
@@ -222,8 +222,8 @@ void DB::EliminarTodosInventario() {
 	}
 }
 
-void DB::InsertarVenta(String^ c, String^ h, String^ tp, Decimal p) {
-	String^ sql = "insert into venta(Cliente, Hora, Tipo_Pago, Pago) values ('" + c + "','" + h + "','" + tp + "','" + p + "')";
+void DB::InsertarVenta(String^ c, String^ h, String^ tp, Decimal p, int s, int d, int t) {
+	String^ sql = "insert into venta(Cliente, Hora, Tipo_Pago, Pago, Simple, Doble, Triple) values ('" + c + "','" + h + "','" + tp + "','" + p + "', '" + s + "', '" + d + "', '" + t + "')";
 	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
 	try
 	{
@@ -238,8 +238,8 @@ void DB::InsertarVenta(String^ c, String^ h, String^ tp, Decimal p) {
 	}
 }
 
-void DB::ModVenta(int id, String^ c, String^ h, String^ tp, Decimal p) {
-	String^ sql = "update venta set Cliente = '" + c + "', Hora = '" + h + "', Tipo_Pago = '" + tp + "', Pago = '" + p + "' where id = '" + id + "'";
+void DB::ModVenta(int id, String^ c, String^ h, String^ tp, Decimal p, int s, int d, int t) {
+	String^ sql = "update venta set Cliente = '" + c + "', Hora = '" + h + "', Tipo_Pago = '" + tp + "', Pago = '" + p + "', Simple = '" + s + "', Doble = '" + d + "', Triple = '" + t + "' where id = '" + id + "'";
 	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
 	try
 	{
@@ -294,4 +294,188 @@ void DB::EliminarTodosVenta() {
 		using namespace System::Drawing;
 		MessageBox::Show(e->Message);
 	}
+}
+
+Int32 DB::getTotalInventario() {
+	Int32 resultado = 0;
+	String^ sql = "select sum(Precio_Total) from inventario";
+	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
+
+	try
+	{
+		using namespace System::Windows::Forms;
+		using namespace System::Data;
+		using namespace System::Drawing;
+		Object^ resultObj = cursor->ExecuteScalar();
+
+		if (resultObj != nullptr && resultObj != DBNull::Value) {
+			resultado = Convert::ToInt32(resultObj);
+		}
+	}
+	catch (Exception^ e)
+	{
+		using namespace System::Windows::Forms;
+		using namespace System::Data;
+		using namespace System::Drawing;
+		MessageBox::Show(e->Message);
+	}
+	return resultado;
+}
+
+Int32 DB::getTotalVentas() {
+	Int32 resultado = 0;
+	String^ sql = "select count(*) from venta";
+	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
+
+	try
+	{
+		using namespace System::Windows::Forms;
+		using namespace System::Data;
+		using namespace System::Drawing;
+		Object^ resultObj = cursor->ExecuteScalar();
+
+		if (resultObj != nullptr && resultObj != DBNull::Value) {
+			resultado = Convert::ToInt32(resultObj);
+		}
+	}
+	catch (Exception^ e)
+	{
+		using namespace System::Windows::Forms;
+		using namespace System::Data;
+		using namespace System::Drawing;
+		MessageBox::Show(e->Message);
+	}
+	return resultado;
+} 
+
+
+
+Int32 DB::getTotalEfectivo() {
+	Int32 resultado = 0;
+	String^ sql = "select sum(Pago) from venta where Tipo_Pago = 'Efectivo'";
+	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
+
+	try
+	{
+		using namespace System::Windows::Forms;
+		using namespace System::Data;
+		using namespace System::Drawing;
+		Object^ resultObj = cursor->ExecuteScalar();
+
+		if (resultObj != nullptr && resultObj != DBNull::Value) {
+			resultado = Convert::ToInt32(resultObj);
+		}
+	}
+	catch (Exception^ e)
+	{
+		using namespace System::Windows::Forms;
+		using namespace System::Data;
+		using namespace System::Drawing;
+		MessageBox::Show(e->Message);
+	}
+	return resultado;
+}
+
+Int32 DB::getTotalMp() {
+	Int32 resultado = 0;
+	String^ sql = "select sum(Pago) from venta where Tipo_Pago = 'Mp'";
+	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
+
+	try
+	{
+		using namespace System::Windows::Forms;
+		using namespace System::Data;
+		using namespace System::Drawing;
+		Object^ resultObj = cursor->ExecuteScalar();
+
+		if (resultObj != nullptr && resultObj != DBNull::Value) {
+			resultado = Convert::ToInt32(resultObj);
+		}
+	}
+	catch (Exception^ e)
+	{
+		using namespace System::Windows::Forms;
+		using namespace System::Data;
+		using namespace System::Drawing;
+		MessageBox::Show(e->Message);
+	}
+	return resultado;
+}
+
+Int32 DB::getTotalSimple() {
+	Int32 simple = 0;
+	String^ sql = "select sum(Simple) from venta";
+	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
+
+	try
+	{
+		using namespace System::Windows::Forms;
+		using namespace System::Data;
+		using namespace System::Drawing;
+		Object^ resultObj = cursor->ExecuteScalar();
+
+		if (resultObj != nullptr && resultObj != DBNull::Value) {
+			simple = Convert::ToInt32(resultObj);
+		}
+	}
+	catch (Exception^ e)
+	{
+		using namespace System::Windows::Forms;
+		using namespace System::Data;
+		using namespace System::Drawing;
+		MessageBox::Show(e->Message);
+	}
+	return simple;
+}
+
+Int32 DB::getTotalDoble() {
+	Int32 doble = 0;
+	String^ sql = "select sum(Doble) from venta";
+	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
+
+	try
+	{
+		using namespace System::Windows::Forms;
+		using namespace System::Data;
+		using namespace System::Drawing;
+		Object^ resultObj = cursor->ExecuteScalar();
+
+		if (resultObj != nullptr && resultObj != DBNull::Value) {
+			doble = Convert::ToInt32(resultObj);
+		}
+	}
+	catch (Exception^ e)
+	{
+		using namespace System::Windows::Forms;
+		using namespace System::Data;
+		using namespace System::Drawing;
+		MessageBox::Show(e->Message);
+	}
+	return doble;
+}
+
+Int32 DB::getTotalTriple() {
+	Int32 triple = 0;
+	String^ sql = "select sum(Triple) from venta";
+	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
+
+	try
+	{
+		using namespace System::Windows::Forms;
+		using namespace System::Data;
+		using namespace System::Drawing;
+		Object^ resultObj = cursor->ExecuteScalar();
+
+		if (resultObj != nullptr && resultObj != DBNull::Value) {
+			triple = Convert::ToInt32(resultObj);
+		}
+	}
+	catch (Exception^ e)
+	{
+		using namespace System::Windows::Forms;
+		using namespace System::Data;
+		using namespace System::Drawing;
+		MessageBox::Show(e->Message);
+	}
+	return triple;
 }

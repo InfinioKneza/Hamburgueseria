@@ -11,6 +11,7 @@ namespace Hamburgueseria {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace System::IO; //Para poder utilizar IO de archivos (exportar CSV)
 
 	/// <summary>
 	/// Resumen de Ventas
@@ -46,6 +47,7 @@ namespace Hamburgueseria {
 	private: System::Windows::Forms::Button^ btn_eliminart_venta;
 	private: DB^ data;
 	private: System::Windows::Forms::DataGridView^ data_grid_ventas;
+	private: System::Windows::Forms::Button^ btn_exportar;
 
 	protected:
 
@@ -68,6 +70,7 @@ namespace Hamburgueseria {
 			this->btn_agregar_venta = (gcnew System::Windows::Forms::Button());
 			this->btn_eliminart_venta = (gcnew System::Windows::Forms::Button());
 			this->data_grid_ventas = (gcnew System::Windows::Forms::DataGridView());
+			this->btn_exportar = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->data_grid_ventas))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -148,6 +151,18 @@ namespace Hamburgueseria {
 			this->data_grid_ventas->TabIndex = 6;
 			this->data_grid_ventas->DoubleClick += gcnew System::EventHandler(this, &Ventas::data_grid_ventas_DoubleClick);
 			// 
+			// btn_exportar
+			// 
+			this->btn_exportar->Font = (gcnew System::Drawing::Font(L"Century Gothic", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->btn_exportar->Location = System::Drawing::Point(394, 69);
+			this->btn_exportar->Name = L"btn_exportar";
+			this->btn_exportar->Size = System::Drawing::Size(159, 35);
+			this->btn_exportar->TabIndex = 7;
+			this->btn_exportar->Text = L"Exportar";
+			this->btn_exportar->UseVisualStyleBackColor = true;
+			this->btn_exportar->Click += gcnew System::EventHandler(this, &Ventas::btn_exportar_Click);
+			// 
 			// Ventas
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -155,6 +170,7 @@ namespace Hamburgueseria {
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(26)), static_cast<System::Int32>(static_cast<System::Byte>(26)),
 				static_cast<System::Int32>(static_cast<System::Byte>(26)));
 			this->ClientSize = System::Drawing::Size(920, 555);
+			this->Controls->Add(this->btn_exportar);
 			this->Controls->Add(this->data_grid_ventas);
 			this->Controls->Add(this->btn_eliminart_venta);
 			this->Controls->Add(this->btn_agregar_venta);
@@ -223,9 +239,49 @@ namespace Hamburgueseria {
 			String^ hora = Convert::ToString(data_grid_ventas->SelectedRows[0]->Cells[2]->Value);
 			String^ tipo = Convert::ToString(data_grid_ventas->SelectedRows[0]->Cells[3]->Value);
 			Decimal pago = Convert::ToDecimal(data_grid_ventas->SelectedRows[0]->Cells[4]->Value);
-			Hamburgueseria::ModificarVenta^ modi = gcnew Hamburgueseria::ModificarVenta(id, cliente, hora, tipo, pago);
+			int simple = Convert::ToInt32(data_grid_ventas->SelectedRows[0]->Cells[5]->Value);
+			int doble = Convert::ToInt32(data_grid_ventas->SelectedRows[0]->Cells[6]->Value);
+			int triple = Convert::ToInt32(data_grid_ventas->SelectedRows[0]->Cells[7]->Value);
+			Hamburgueseria::ModificarVenta^ modi = gcnew Hamburgueseria::ModificarVenta(id, cliente, hora, tipo, pago, simple, doble, triple);
 			modi->ShowDialog();
 			this->Consulta();
+		}
+	}
+	private: System::Void btn_exportar_Click(System::Object^ sender, System::EventArgs^ e) {
+		// Crea un cuadro de diálogo para seleccionar la ubicación del archivo CSV
+		SaveFileDialog^ saveFileDialog1 = gcnew SaveFileDialog();
+		saveFileDialog1->Filter = "Archivos CSV|*.csv";
+		saveFileDialog1->Title = "Guardar como CSV";
+
+		if (saveFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
+			// Abre un archivo para escritura en la ubicación seleccionada
+			String^ filePath = saveFileDialog1->FileName;
+			StreamWriter^ sw = gcnew StreamWriter(filePath);
+
+			// Escribe las cabeceras de las columnas (nombres de las columnas)
+			for (int i = 0; i < data_grid_ventas->Columns->Count; i++) {
+				sw->Write(data_grid_ventas->Columns[i]->HeaderText);
+				if (i < data_grid_ventas->Columns->Count - 1) {
+					sw->Write(",");
+				}
+			}
+			sw->WriteLine(); // Nueva línea después de las cabeceras
+
+			// Escribe los datos de las filas
+			for (int row = 0; row < data_grid_ventas->RowCount; row++) {
+				for (int col = 0; col < data_grid_ventas->ColumnCount; col++) {
+					sw->Write(data_grid_ventas->Rows[row]->Cells[col]->Value);
+					if (col < data_grid_ventas->ColumnCount - 1) {
+						sw->Write(",");
+					}
+				}
+				sw->WriteLine(); // Nueva línea después de cada fila
+			}
+
+			// Cierra el archivo
+			sw->Close();
+
+			MessageBox::Show("La tabla se ha exportado como archivo CSV con éxito.", "Exportación CSV", MessageBoxButtons::OK, MessageBoxIcon::Information);
 		}
 	}
 };

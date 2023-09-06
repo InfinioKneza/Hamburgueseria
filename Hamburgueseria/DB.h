@@ -24,9 +24,16 @@ public:
 	void ModInventario(int, String^, int, Decimal);
 	void EliminarInventario(int);
 	void EliminarTodosInventario();
-	void InsertarVenta(String^, String^, String^, Decimal);
-	void ModVenta(int, String^, String^, String^, Decimal);
+	void InsertarVenta(String^, String^, String^, Decimal, int, int, int);
+	void ModVenta(int, String^, String^, String^, Decimal, int, int, int);
 	void EliminarVenta(int);
 	void EliminarTodosVenta();
+	Int32 getTotalInventario();
+	Int32 getTotalVentas();
+	Int32 getTotalEfectivo();
+	Int32 getTotalMp();
+	Int32 getTotalSimple();
+	Int32 getTotalDoble();
+	Int32 getTotalTriple();
 };
 

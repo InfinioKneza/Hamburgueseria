@@ -256,6 +256,6 @@ namespace Hamburgueseria {
 			this->data->CerrarConexion();
 			this->Close();
 		}
-	} 
+	}
 };
 }
