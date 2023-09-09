@@ -170,6 +170,7 @@
     <ClInclude Include="Productos.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Ventas.h">
       <FileType>CppForm</FileType>
     </ClInclude>

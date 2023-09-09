@@ -424,9 +424,9 @@ namespace Hamburgueseria {
 	{
 		this->data->AbrirConexion();
 		this->txt_n_ventas->Text = Convert::ToString(this->data->getTotalVentas());
-		Int32 inventario = this->data->getTotalInventario();
-		Int32 totalEfectivo = this->data->getTotalEfectivo();
-		Int32 totalMp = this->data->getTotalMp();
+		double inventario = this->data->getTotalInventario();
+		double totalEfectivo = this->data->getTotalEfectivo();
+		double totalMp = this->data->getTotalMp();
 		Int32 simple = this->data->getTotalSimple();
 		Int32 doble = this->data->getTotalDoble();
 		Int32 triple = this->data->getTotalTriple();
@@ -450,5 +450,5 @@ namespace Hamburgueseria {
 	private: System::Void Estadisticas_Load(System::Object^ sender, System::EventArgs^ e) {
 		this->Consulta();
 	} 
-	};
+};
 }

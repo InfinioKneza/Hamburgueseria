@@ -296,8 +296,8 @@ void DB::EliminarTodosVenta() {
 	}
 }
 
-Int32 DB::getTotalInventario() {
-	Int32 resultado = 0;
+double DB::getTotalInventario() {
+	double resultado = 0;
 	String^ sql = "select sum(Precio_Total) from inventario";
 	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
 
@@ -309,7 +309,7 @@ Int32 DB::getTotalInventario() {
 		Object^ resultObj = cursor->ExecuteScalar();
 
 		if (resultObj != nullptr && resultObj != DBNull::Value) {
-			resultado = Convert::ToInt32(resultObj);
+			resultado = Convert::ToDouble(resultObj);
 		}
 	}
 	catch (Exception^ e)
@@ -322,8 +322,8 @@ Int32 DB::getTotalInventario() {
 	return resultado;
 }
 
-Int32 DB::getTotalVentas() {
-	Int32 resultado = 0;
+double DB::getTotalVentas() {
+	double resultado = 0;
 	String^ sql = "select count(*) from venta";
 	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
 
@@ -335,7 +335,7 @@ Int32 DB::getTotalVentas() {
 		Object^ resultObj = cursor->ExecuteScalar();
 
 		if (resultObj != nullptr && resultObj != DBNull::Value) {
-			resultado = Convert::ToInt32(resultObj);
+			resultado = Convert::ToDouble(resultObj);
 		}
 	}
 	catch (Exception^ e)
@@ -350,8 +350,8 @@ Int32 DB::getTotalVentas() {
 
 
 
-Int32 DB::getTotalEfectivo() {
-	Int32 resultado = 0;
+double DB::getTotalEfectivo() {
+	double resultado = 0;
 	String^ sql = "select sum(Pago) from venta where Tipo_Pago = 'Efectivo'";
 	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
 
@@ -363,7 +363,7 @@ Int32 DB::getTotalEfectivo() {
 		Object^ resultObj = cursor->ExecuteScalar();
 
 		if (resultObj != nullptr && resultObj != DBNull::Value) {
-			resultado = Convert::ToInt32(resultObj);
+			resultado = Convert::ToDouble(resultObj);
 		}
 	}
 	catch (Exception^ e)
@@ -376,11 +376,10 @@ Int32 DB::getTotalEfectivo() {
 	return resultado;
 }
 
-Int32 DB::getTotalMp() {
-	Int32 resultado = 0;
+double DB::getTotalMp() {
+	double resultado = 0;
 	String^ sql = "select sum(Pago) from venta where Tipo_Pago = 'Mp'";
 	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
-
 	try
 	{
 		using namespace System::Windows::Forms;
@@ -389,7 +388,7 @@ Int32 DB::getTotalMp() {
 		Object^ resultObj = cursor->ExecuteScalar();
 
 		if (resultObj != nullptr && resultObj != DBNull::Value) {
-			resultado = Convert::ToInt32(resultObj);
+			resultado = Convert::ToDouble(resultObj);
 		}
 	}
 	catch (Exception^ e)

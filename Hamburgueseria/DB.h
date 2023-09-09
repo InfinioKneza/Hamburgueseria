@@ -28,10 +28,10 @@ public:
 	void ModVenta(int, String^, String^, String^, Decimal, int, int, int);
 	void EliminarVenta(int);
 	void EliminarTodosVenta();
-	Int32 getTotalInventario();
-	Int32 getTotalVentas();
-	Int32 getTotalEfectivo();
-	Int32 getTotalMp();
+	double getTotalInventario();
+	double getTotalVentas();
+	double getTotalEfectivo();
+	double getTotalMp();
 	Int32 getTotalSimple();
 	Int32 getTotalDoble();
 	Int32 getTotalTriple();
