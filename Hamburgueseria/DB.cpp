@@ -29,7 +29,7 @@ DataTable^ DB::getDataProductos()
 
 DataTable^ DB::getDataVentas()
 {
-	String^ sql = "Select id, cliente as 'Cliente', hora as 'Hora de entrega', tipo_pago as 'Tipo de pago', pago as 'Pago', simple as 'Simple', doble as 'Doble', triple as 'Triple' from venta";
+	String^ sql = "Select id, cliente as 'Cliente', hora as 'Hora de entrega', tipo_pago as 'Tipo de pago', pago as 'Pago' from venta";
 	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
 	MySqlDataAdapter^ data = gcnew MySqlDataAdapter(cursor);
 	DataTable^ tabla = gcnew DataTable();
@@ -47,7 +47,28 @@ DataTable^ DB::getDataInventario()
 	return tabla;
 }
 
-void DB::InsertarProducto(String^ n, Decimal s, Decimal d, Decimal t) {
+DataTable^ DB::getDataTableProductos()
+{
+	String^ sql = "Select * from producto";
+	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
+	MySqlDataAdapter^ data = gcnew MySqlDataAdapter(cursor);
+	DataTable^ tabla = gcnew DataTable();
+	data->Fill(tabla);
+	return tabla;
+}
+
+DataTable^ DB::getDataTableVentaHamburguesa()
+{
+	String^ sql = "Select * from ventahamburguesa";
+	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
+	MySqlDataAdapter^ data = gcnew MySqlDataAdapter(cursor);
+	DataTable^ tabla = gcnew DataTable();
+	data->Fill(tabla);
+	return tabla;
+}
+
+void DB::InsertarProducto(String^ n, Decimal s, Decimal d, Decimal t) 
+{
 	String^ sql = "insert into producto(Nombre, Simple, Doble, Triple) values ('" + n + "','" + s + "','" + d + "','" + t + "')";
 	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
 	try
@@ -63,7 +84,8 @@ void DB::InsertarProducto(String^ n, Decimal s, Decimal d, Decimal t) {
 	}
 }
 
-void DB::ModProducto(int id, String^ n, Decimal s, Decimal d, Decimal t) {
+void DB::ModProducto(int id, String^ n, Decimal s, Decimal d, Decimal t) 
+{
 	String^ sql = "update producto set Nombre = '" + n + "', Simple = '" + s + "', Doble = '" + d + "', Triple = '" + t + "' where id = '" + id + "'";
 	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
 	try
@@ -82,7 +104,8 @@ void DB::ModProducto(int id, String^ n, Decimal s, Decimal d, Decimal t) {
 	}
 }
 
-void DB::EliminarProducto(int id) {
+void DB::EliminarProducto(int id) 
+{
 	String^ sql = "delete from producto where id = '" + id + "'";
 	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
 	try
@@ -101,7 +124,8 @@ void DB::EliminarProducto(int id) {
 	}
 }
 
-void DB::EliminarTodosProducto() {
+void DB::EliminarTodosProducto() 
+{
 	String^ sql = "delete from producto";
 	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
 	try
@@ -120,7 +144,8 @@ void DB::EliminarTodosProducto() {
 	}
 }
 
-void DB::InsertarInventario(String^ n, int c, Decimal pu) {
+void DB::InsertarInventario(String^ n, int c, Decimal pu) 
+{
 	String^ sql = "insert into inventario(Nombre, Cantidad, Precio_Unitario) values ('" + n + "','" + c + "','" + pu + "')";
 	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
 	try
@@ -149,7 +174,8 @@ void DB::InsertarInventario(String^ n, int c, Decimal pu) {
 	}
 }
 
-void DB::ModInventario(int id, String^ n, int c, Decimal pu) {
+void DB::ModInventario(int id, String^ n, int c, Decimal pu) 
+{
 	String^ sql = "update inventario set Nombre = '" + n + "', Cantidad = '" + c + "', Precio_Unitario = '" + pu + "' where id = '" + id + "'";
 	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
 	try
@@ -184,7 +210,8 @@ void DB::ModInventario(int id, String^ n, int c, Decimal pu) {
 	}
 }
 
-void DB::EliminarInventario(int id) {
+void DB::EliminarInventario(int id) 
+{
 	String^ sql = "delete from inventario where id = '" + id + "'";
 	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
 	try
@@ -203,7 +230,8 @@ void DB::EliminarInventario(int id) {
 	}
 }
 
-void DB::EliminarTodosInventario() {
+void DB::EliminarTodosInventario() 
+{
 	String^ sql = "delete from inventario";
 	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
 	try
@@ -222,8 +250,9 @@ void DB::EliminarTodosInventario() {
 	}
 }
 
-void DB::InsertarVenta(String^ c, String^ h, String^ tp, Decimal p, int s, int d, int t) {
-	String^ sql = "insert into venta(Cliente, Hora, Tipo_Pago, Pago, Simple, Doble, Triple) values ('" + c + "','" + h + "','" + tp + "','" + p + "', '" + s + "', '" + d + "', '" + t + "')";
+void DB::InsertarVentaHamburguesa(String^ c, String^ h, int s, int d, int t)
+{
+	String^ sql = "insert into ventahamburguesa(Cliente, Producto, Simple, Doble, Triple) values ('" + c + "','" + h + "','" + s + "','" + d + "','" + t + "')";
 	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
 	try
 	{
@@ -238,8 +267,182 @@ void DB::InsertarVenta(String^ c, String^ h, String^ tp, Decimal p, int s, int d
 	}
 }
 
-void DB::ModVenta(int id, String^ c, String^ h, String^ tp, Decimal p, int s, int d, int t) {
-	String^ sql = "update venta set Cliente = '" + c + "', Hora = '" + h + "', Tipo_Pago = '" + tp + "', Pago = '" + p + "', Simple = '" + s + "', Doble = '" + d + "', Triple = '" + t + "' where id = '" + id + "'";
+double DB::getTotalVentaHamburguesa(String^ n, int s, int d, int t) {
+	double total = 0;
+	Object^ resultObj;
+	String^ sql = "select simple from producto where nombre = '" + n + "'";
+	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
+	try
+	{
+		resultObj = cursor->ExecuteScalar();
+
+		if (resultObj != nullptr && resultObj != DBNull::Value) {
+			total += (Convert::ToDouble(resultObj) * s);
+		}
+	}
+	catch (Exception^ e)
+	{
+		using namespace System::Windows::Forms;
+		using namespace System::Data;
+		using namespace System::Drawing;
+		MessageBox::Show(e->Message);
+	}
+	sql = "select doble from producto where nombre = '" + n + "'";
+	cursor = gcnew MySqlCommand(sql, this->conn);
+	try
+	{
+		resultObj = cursor->ExecuteScalar();
+
+		if (resultObj != nullptr && resultObj != DBNull::Value) {
+			total += (Convert::ToDouble(resultObj) * d);
+		}
+	}
+	catch (Exception^ e)
+	{
+		using namespace System::Windows::Forms;
+		using namespace System::Data;
+		using namespace System::Drawing;
+		MessageBox::Show(e->Message);
+	}
+	sql = "select triple from producto where nombre = '" + n + "'";
+	cursor = gcnew MySqlCommand(sql, this->conn);
+	try
+	{
+		resultObj = cursor->ExecuteScalar();
+
+		if (resultObj != nullptr && resultObj != DBNull::Value) {
+			total += (Convert::ToDouble(resultObj) * t);
+		}
+	}
+	catch (Exception^ e)
+	{
+		using namespace System::Windows::Forms;
+		using namespace System::Data;
+		using namespace System::Drawing;
+		MessageBox::Show(e->Message);
+	}
+	return total;
+}
+
+void DB::ModVentaHamburguesa(String^ cv, String^ cn, String^ h, int s, int d, int t)
+{
+	String^ sql;
+	if (cn == cv) {
+		sql = "update ventahamburguesa set Simple = '" + s + "', Doble = '" + d + "', Triple = '" + t + "' where Cliente = '" + cv + "' and Producto = '" + h + "'";
+	}
+	else {
+		sql = "update ventahamburguesa set Simple = '" + s + "', Doble = '" + d + "', Triple = '" + t + "', Cliente = '" + cn + "' where Cliente = '" + cv + "' and Producto = '" + h + "'";
+	}
+	
+	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
+	try
+	{
+		using namespace System::Windows::Forms;
+		using namespace System::Data;
+		using namespace System::Drawing;
+		cursor->ExecuteNonQuery();
+	}
+	catch (Exception^ e)
+	{
+		using namespace System::Windows::Forms;
+		using namespace System::Data;
+		using namespace System::Drawing;
+		MessageBox::Show(e->Message);
+	}
+}
+
+int DB::getSimpleCliente(String^ h, String^ c)
+{
+	int total = 0;
+	Object^ resultObj;
+	String^ sql = "select simple from ventahamburguesa where cliente = '" + c + "' and producto = '" + h + "'";
+	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
+	try
+	{
+		resultObj = cursor->ExecuteScalar();
+
+		if (resultObj != nullptr && resultObj != DBNull::Value) {
+			total = Convert::ToInt32(resultObj);
+		}
+	}
+	catch (Exception^ e)
+	{
+		using namespace System::Windows::Forms;
+		using namespace System::Data;
+		using namespace System::Drawing;
+		MessageBox::Show(e->Message);
+	}
+	return total;
+}
+
+int DB::getDobleCliente(String^ h, String^ c)
+{
+	int total = 0;
+	Object^ resultObj;
+	String^ sql = "select doble from ventahamburguesa where cliente = '" + c + "' and producto = '" + h + "'";
+	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
+	try
+	{
+		resultObj = cursor->ExecuteScalar();
+
+		if (resultObj != nullptr && resultObj != DBNull::Value) {
+			total = Convert::ToInt32(resultObj);
+		}
+	}
+	catch (Exception^ e)
+	{
+		using namespace System::Windows::Forms;
+		using namespace System::Data;
+		using namespace System::Drawing;
+		MessageBox::Show(e->Message);
+	}
+	return total;
+}
+
+int DB::getTripleCliente(String^ h, String^ c)
+{
+	int total = 0;
+	Object^ resultObj;
+	String^ sql = "select triple from ventahamburguesa where cliente = '" + c + "' and producto = '" + h + "'";
+	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
+	try
+	{
+		resultObj = cursor->ExecuteScalar();
+
+		if (resultObj != nullptr && resultObj != DBNull::Value) {
+			total = Convert::ToInt32(resultObj);
+		}
+	}
+	catch (Exception^ e)
+	{
+		using namespace System::Windows::Forms;
+		using namespace System::Data;
+		using namespace System::Drawing;
+		MessageBox::Show(e->Message);
+	}
+	return total;
+}
+
+void DB::InsertarVenta(String^ c, String^ h, String^ tp, Decimal p) 
+{
+	String^ sql = "insert into venta(Cliente, Hora, Tipo_Pago, Pago) values ('" + c + "','" + h + "','" + tp + "','" + p + "')";
+	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
+	try
+	{
+		cursor->ExecuteNonQuery();
+	}
+	catch (Exception^ e)
+	{
+		using namespace System::Windows::Forms;
+		using namespace System::Data;
+		using namespace System::Drawing;
+		MessageBox::Show(e->Message);
+	}
+}
+
+void DB::ModVenta(int id, String^ c, String^ h, String^ tp, Decimal p) 
+{
+	String^ sql = "update venta set Cliente = '" + c + "', Hora = '" + h + "', Tipo_Pago = '" + tp + "', Pago = '" + p + "' where id = '" + id + "'";
 	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
 	try
 	{
@@ -258,7 +461,8 @@ void DB::ModVenta(int id, String^ c, String^ h, String^ tp, Decimal p, int s, in
 	
 }
 
-void DB::EliminarVenta(int id) {
+void DB::EliminarVenta(int id, String^ n) 
+{
 	String^ sql = "delete from venta where id = '" + id + "'";
 	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
 	try
@@ -275,11 +479,8 @@ void DB::EliminarVenta(int id) {
 		using namespace System::Drawing;
 		MessageBox::Show(e->Message);
 	}
-}
-
-void DB::EliminarTodosVenta() {
-	String^ sql = "delete from venta";
-	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
+	sql = "delete from ventahamburguesa where cliente = '" + n + "'";
+	cursor = gcnew MySqlCommand(sql, this->conn);
 	try
 	{
 		using namespace System::Windows::Forms;
@@ -296,7 +497,44 @@ void DB::EliminarTodosVenta() {
 	}
 }
 
-double DB::getTotalInventario() {
+void DB::EliminarTodosVenta() 
+{
+	String^ sql = "delete from venta";
+	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
+	try
+	{
+		using namespace System::Windows::Forms;
+		using namespace System::Data;
+		using namespace System::Drawing;
+		cursor->ExecuteNonQuery();
+	}
+	catch (Exception^ e)
+	{
+		using namespace System::Windows::Forms;
+		using namespace System::Data;
+		using namespace System::Drawing;
+		MessageBox::Show(e->Message);
+	}
+	sql = "delete from ventahamburguesa";
+	cursor = gcnew MySqlCommand(sql, this->conn);
+	try
+	{
+		using namespace System::Windows::Forms;
+		using namespace System::Data;
+		using namespace System::Drawing;
+		cursor->ExecuteNonQuery();
+	}
+	catch (Exception^ e)
+	{
+		using namespace System::Windows::Forms;
+		using namespace System::Data;
+		using namespace System::Drawing;
+		MessageBox::Show(e->Message);
+	}
+}
+
+double DB::getTotalInventario() 
+{
 	double resultado = 0;
 	String^ sql = "select sum(Precio_Total) from inventario";
 	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
@@ -322,7 +560,8 @@ double DB::getTotalInventario() {
 	return resultado;
 }
 
-double DB::getTotalVentas() {
+double DB::getTotalVentas() 
+{
 	double resultado = 0;
 	String^ sql = "select count(*) from venta";
 	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
@@ -350,7 +589,8 @@ double DB::getTotalVentas() {
 
 
 
-double DB::getTotalEfectivo() {
+double DB::getTotalEfectivo() 
+{
 	double resultado = 0;
 	String^ sql = "select sum(Pago) from venta where Tipo_Pago = 'Efectivo'";
 	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
@@ -376,7 +616,8 @@ double DB::getTotalEfectivo() {
 	return resultado;
 }
 
-double DB::getTotalMp() {
+double DB::getTotalMp() 
+{
 	double resultado = 0;
 	String^ sql = "select sum(Pago) from venta where Tipo_Pago = 'Mp'";
 	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
@@ -401,9 +642,10 @@ double DB::getTotalMp() {
 	return resultado;
 }
 
-Int32 DB::getTotalSimple() {
+Int32 DB::getTotalSimple() 
+{
 	Int32 simple = 0;
-	String^ sql = "select sum(Simple) from venta";
+	String^ sql = "select sum(Simple) from ventahamburguesa";
 	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
 
 	try
@@ -427,9 +669,10 @@ Int32 DB::getTotalSimple() {
 	return simple;
 }
 
-Int32 DB::getTotalDoble() {
+Int32 DB::getTotalDoble() 
+{
 	Int32 doble = 0;
-	String^ sql = "select sum(Doble) from venta";
+	String^ sql = "select sum(Doble) from ventahamburguesa";
 	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
 
 	try
@@ -453,9 +696,10 @@ Int32 DB::getTotalDoble() {
 	return doble;
 }
 
-Int32 DB::getTotalTriple() {
+Int32 DB::getTotalTriple() 
+{
 	Int32 triple = 0;
-	String^ sql = "select sum(Triple) from venta";
+	String^ sql = "select sum(Triple) from ventahamburguesa";
 	MySqlCommand^ cursor = gcnew MySqlCommand(sql, this->conn);
 
 	try

@@ -142,12 +142,12 @@ namespace Hamburgueseria {
 			dataGridViewCellStyle2->SelectionForeColor = System::Drawing::Color::White;
 			dataGridViewCellStyle2->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
 			this->data_grid_ventas->DefaultCellStyle = dataGridViewCellStyle2;
-			this->data_grid_ventas->Location = System::Drawing::Point(77, 130);
+			this->data_grid_ventas->Location = System::Drawing::Point(80, 129);
 			this->data_grid_ventas->Name = L"data_grid_ventas";
 			this->data_grid_ventas->ReadOnly = true;
 			this->data_grid_ventas->RowHeadersVisible = false;
 			this->data_grid_ventas->SelectionMode = System::Windows::Forms::DataGridViewSelectionMode::FullRowSelect;
-			this->data_grid_ventas->Size = System::Drawing::Size(878, 416);
+			this->data_grid_ventas->Size = System::Drawing::Size(805, 414);
 			this->data_grid_ventas->TabIndex = 6;
 			this->data_grid_ventas->DoubleClick += gcnew System::EventHandler(this, &Ventas::data_grid_ventas_DoubleClick);
 			// 
@@ -239,10 +239,7 @@ namespace Hamburgueseria {
 			String^ hora = Convert::ToString(data_grid_ventas->SelectedRows[0]->Cells[2]->Value);
 			String^ tipo = Convert::ToString(data_grid_ventas->SelectedRows[0]->Cells[3]->Value);
 			Decimal pago = Convert::ToDecimal(data_grid_ventas->SelectedRows[0]->Cells[4]->Value);
-			int simple = Convert::ToInt32(data_grid_ventas->SelectedRows[0]->Cells[5]->Value);
-			int doble = Convert::ToInt32(data_grid_ventas->SelectedRows[0]->Cells[6]->Value);
-			int triple = Convert::ToInt32(data_grid_ventas->SelectedRows[0]->Cells[7]->Value);
-			Hamburgueseria::ModificarVenta^ modi = gcnew Hamburgueseria::ModificarVenta(id, cliente, hora, tipo, pago, simple, doble, triple);
+			Hamburgueseria::ModificarVenta^ modi = gcnew Hamburgueseria::ModificarVenta(id, cliente, hora, tipo);
 			modi->ShowDialog();
 			this->Consulta();
 		}
@@ -278,6 +275,29 @@ namespace Hamburgueseria {
 				sw->WriteLine(); // Nueva línea después de cada fila
 			}
 
+			sw->WriteLine();
+
+			this->data->AbrirConexion();
+			DataTable^ vhTable = this->data->getDataTableVentaHamburguesa();
+			this->data->CerrarConexion();
+
+			// Escribe las cabeceras de las columnas en el archivo CSV
+			for each (DataColumn ^ column in vhTable->Columns)
+			{
+				sw->Write(column->ColumnName + ",");
+			}
+			sw->WriteLine(); // Nueva línea después de las cabeceras
+
+			// Escribe los datos de las filas en el archivo CSV
+			for each (DataRow ^ row in vhTable->Rows)
+			{
+				for each (Object ^ item in row->ItemArray)
+				{
+					sw->Write(item->ToString() + ",");
+				}
+				sw->WriteLine(); // Nueva línea después de cada fila
+			}
+		
 			// Cierra el archivo
 			sw->Close();
 

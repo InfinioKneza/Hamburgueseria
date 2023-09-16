@@ -14,6 +14,8 @@ public:
 	DataTable^ getDataProductos();
 	DataTable^ getDataVentas();
 	DataTable^ getDataInventario();
+	DataTable^ getDataTableProductos();
+	DataTable^ getDataTableVentaHamburguesa();
 	void AbrirConexion();
 	void CerrarConexion();
 	void InsertarProducto(String^,Decimal ,Decimal, Decimal);
@@ -24,9 +26,15 @@ public:
 	void ModInventario(int, String^, int, Decimal);
 	void EliminarInventario(int);
 	void EliminarTodosInventario();
-	void InsertarVenta(String^, String^, String^, Decimal, int, int, int);
-	void ModVenta(int, String^, String^, String^, Decimal, int, int, int);
-	void EliminarVenta(int);
+	void InsertarVentaHamburguesa(String^, String^, int, int, int);
+	void ModVentaHamburguesa(String^, String^, String^, int, int, int);
+	double getTotalVentaHamburguesa(String^, int, int, int);
+	int getSimpleCliente(String^, String^);
+	int getDobleCliente(String^, String^);
+	int getTripleCliente(String^, String^);
+	void InsertarVenta(String^, String^, String^, Decimal);
+	void ModVenta(int, String^, String^, String^, Decimal);
+	void EliminarVenta(int, String^);
 	void EliminarTodosVenta();
 	double getTotalInventario();
 	double getTotalVentas();
