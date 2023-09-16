@@ -93,4 +93,9 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Hamburgueseria.rc">
+      <Filter>Archivos de recursos</Filter>
+    </ResourceCompile>
+  </ItemGroup>
 </Project>
