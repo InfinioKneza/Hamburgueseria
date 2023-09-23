@@ -2,7 +2,7 @@
 
 DB::DB()
 {
-	this->connectionString = "datasource=localhost; username=infinio; password=pikarichu64; database=hamburgueseria;";
+	this->connectionString = "datasource=localhost; username=infinio; password=; database=hamburgueseria;"; //En password iria la contraseña
 	this->conn = gcnew MySqlConnection(this->connectionString);
 }
 
